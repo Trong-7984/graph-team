@@ -1,7 +1,10 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <string>
 using namespace std;
 
 class Graph {
