@@ -1,37 +1,46 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <iostream>
 #include <vector>
-#include <string>
+#include <utility>
 
 using namespace std;
 
-/*
-    Cấu trúc Graph ổn định
-    - Đồ thị vô hướng / có hướng (tùy dùng)
-    - Dùng danh sách kề
-*/
+class Graph {
+private:
+    int n;   // số đỉnh
+    bool directed;  // đồ thị có hướng hay không
+    vector<vector<pair<int,int>>> adj; // danh sách kề (đỉnh, trọng số)
 
-struct Graph {
-    int n;                          // số đỉnh
-    bool directed;                 // có hướng hay không
-    vector<vector<int>> adj;       // danh sách kề
+public:
+    // Khởi tạo đồ thị
+    Graph(int n = 0, bool directed = false) {
+        this->n = n;
+        this->directed = directed;
+        adj.resize(n);
+    }
+
+    // Thêm cạnh
+    void addEdge(int u, int v, int w = 1) {
+        adj[u].push_back({v, w});
+        if (!directed) {
+            adj[v].push_back({u, w});
+        }
+    }
+
+    // Getter
+    int getNumVertices() const {
+        return n;
+    }
+
+    bool isDirected() const {
+        return directed;
+    }
+
+    const vector<vector<pair<int,int>>>& getAdjList() const {
+        return adj;
+    }
 };
 
-/* ================= KHỞI TẠO ================= */
-void initGraph(Graph& g, int n, bool directed = false);
-
-/* ================= THAO TÁC ================= */
-bool addEdge(Graph& g, int u, int v);
-bool isValidVertex(const Graph& g, int u);
-
-/* ================= LƯU & TẢI FILE ================= */
-// Người 4 – Lưu & hỗ trợ
-bool saveGraph(const Graph& g, const string& filename);
-bool loadGraph(Graph& g, const string& filename);
-
-/* ================= HIỂN THỊ ================= */
-void printGraph(const Graph& g);
-
 #endif
+
