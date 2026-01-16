@@ -1,21 +1,20 @@
 #include <fstream>
-#include <vector>
 #include "graph.h"
 
-void saveGraph(const std::string& filename,
-               const std::vector<std::vector<int>>& adjList) {
-    std::ofstream out(filename);
+void saveGraph(const Graph& g, const string& filename) {
+    ofstream out(filename);
     if (!out.is_open()) return;
 
-    int n = adjList.size();
-    out << n << "\n";
+    auto adj = g.getAdjList();
+    int n = adj.size();
 
-    for (int i = 0; i < n; i++) {
-        out << adjList[i].size();
-        for (int v : adjList[i]) {
-            out << " " << v;
+    out << n << " " << g.isDirected() << "\n";
+
+    for (int u = 0; u < n; u++) {
+        for (auto [v, w] : adj[u]) {
+            if (!g.isDirected() && u > v) continue; // tránh ghi trùng
+            out << u << " " << v << " " << w << "\n";
         }
-        out << "\n";
     }
 
     out.close();
