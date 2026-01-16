@@ -1,0 +1,37 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+/*
+    Cấu trúc Graph ổn định
+    - Đồ thị vô hướng / có hướng (tùy dùng)
+    - Dùng danh sách kề
+*/
+
+struct Graph {
+    int n;                          // số đỉnh
+    bool directed;                 // có hướng hay không
+    vector<vector<int>> adj;       // danh sách kề
+};
+
+/* ================= KHỞI TẠO ================= */
+void initGraph(Graph& g, int n, bool directed = false);
+
+/* ================= THAO TÁC ================= */
+bool addEdge(Graph& g, int u, int v);
+bool isValidVertex(const Graph& g, int u);
+
+/* ================= LƯU & TẢI FILE ================= */
+// Người 4 – Lưu & hỗ trợ
+bool saveGraph(const Graph& g, const string& filename);
+bool loadGraph(Graph& g, const string& filename);
+
+/* ================= HIỂN THỊ ================= */
+void printGraph(const Graph& g);
+
+#endif
