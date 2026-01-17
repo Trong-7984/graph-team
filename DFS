@@ -1,0 +1,26 @@
+#include "Graph.h"
+#include <queue>
+#include <iostream>
+#include <vector>
+#include <utility>
+using namespace std;
+
+void DFSUtil(int u, vector<bool>& visited, const vector<vector<pair<int, int>>>& adj) {
+    visited[u] = true;
+    cout << u << " ";
+
+    for (auto& edge : adj[u]) {
+        int v = edge.first;
+        if (!visited[v]) {
+            DFSUtil(v, visited, adj);
+        }
+    }
+}
+
+void DFS(Graph & g, int startNode) {
+    int n = (int)g.getAdjList().size();
+    vector<bool> visited(n, false);
+    cout << "DFS starting from node " << startNode << ": ";
+    DFSUtil(startNode, visited, g.getAdjList());
+    cout << endl;
+}
