@@ -1,0 +1,36 @@
+#include "Graph.h"
+#include <queue>
+#include <iostream>
+#include <vector>
+#include <utility>
+using namespace std;
+bool isBipartite(Graph & g) {
+    int n = (int)g.getAdjList().size();
+    vector<int> color(n, -1); // -1: ch?a tô, 0: màu 1, 1: màu 2
+    vector<vector<pair<int, int>>> adj = g.getAdjList();
+
+    for (int i = 0; i < n; i++) {
+        if (color[i] == -1) {
+            queue<int> q;
+            q.push(i);
+            color[i] = 0;
+
+            while (!q.empty()) {
+                int u = q.front();
+                q.pop();
+
+                for (auto& edge : adj[u]) {
+                    int v = edge.first;
+                    if (color[v] == -1) {
+                        color[v] = 1 - color[u];
+                        q.push(v);
+                    }
+                    else if (color[v] == color[u]) {
+                        return false; // Phát hi?n c?nh n?i 2 ??nh cùng màu
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
