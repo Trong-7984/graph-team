@@ -1,0 +1,46 @@
+#include "graph.h"
+
+// ===== DANH SACH KE =====
+void Graph::printAdjList() {
+    cout << "=== DANH SACH KE ===\n";
+    for (int u = 0; u < n; u++) {
+        cout << u << ": ";
+        for (auto &p : adj[u]) {
+            cout << "(" << p.first << ", w=" << p.second << ") ";
+        }
+        cout << endl;
+    }
+}
+
+// ===== DANH SACH CANH =====
+void Graph::printEdgeList() {
+    cout << "=== DANH SACH CANH ===\n";
+    for (int u = 0; u < n; u++) {
+        for (auto &p : adj[u]) {
+            int v = p.first;
+            int w = p.second;
+            if (directed || u < v) {
+                cout << u << " -> " << v << " (w=" << w << ")\n";
+            }
+        }
+    }
+}
+
+// ===== MA TRAN KE =====
+void Graph::printAdjMatrix() {
+    cout << "=== MA TRAN KE ===\n";
+    vector<vector<int>> matrix(n, vector<int>(n, 0));
+
+    for (int u = 0; u < n; u++) {
+        for (auto &p : adj[u]) {
+            matrix[u][p.first] = p.second;
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
