@@ -33,6 +33,14 @@ public:
     vector<vector<pair<int,int>>> getAdjList() {
         return adj;
     }
+    // ===== IN DANH SACH KE =====
+    void printAdjList();
+
+    // ===== IN DANH SACH CANH =====
+    void printEdgeList();
+
+    // ===== IN MA TRAN KE =====
+    void printAdjMatrix();
 };
 
 #endif // GRAPH_H
