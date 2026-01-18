@@ -27,5 +27,12 @@ int main(){
     else {
         cout << "Do thi KHONG phai la do thi phan doi." << endl;
     }
+    cout << endl;
+    g.printAdjList();
 
+    cout << endl;
+    g.printEdgeList();
+
+    cout << endl;
+    g.printAdjMatrix();
     return 0;
