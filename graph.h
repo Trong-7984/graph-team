@@ -83,5 +83,54 @@ Chuyển danh sách cạnh - Danh sách kề
            }
        }
    }
+void printPath(int v, vector<int>& parent) {
+    if (v == -1) return;
+    printPath(parent[v], parent);
+    cout << v << " ";
+}
 
+void Dijkstra(Graph g, int startNode) {
+    int n = g.getAdjList().size();
+    vector<vector<pair<int, int>>> adj = g.getAdjList();
+
+    vector<int> dist(n, INT_MAX);
+    vector<bool> visited(n, false);
+    vector<int> parent(n, -1);
+
+    dist[startNode] = 0;
+
+    for (int i = 0; i < n; i++) {
+        int u = -1, minDist = INT_MAX;
+        for (int j = 0; j < n; j++) {
+            if (!visited[j] && dist[j] < minDist) {
+                minDist = dist[j];
+                u = j;
+            }
+        }
+        if (u == -1) break;
+        visited[u] = true;
+
+        for (auto edge : adj[u]) {
+            int v = edge.first;
+            int w = edge.second;
+            if (!visited[v] && dist[v] > dist[u] + w) {
+                dist[v] = dist[u] + w;
+                parent[v] = u;
+            }
+        }
+    }
+
+    cout << "\nDijkstra (co duong di):\n";
+    for (int i = 0; i < n; i++) {
+        if (dist[i] == INT_MAX) {
+            cout << "Khong co duong tu " << startNode << " den " << i << endl;
+        }
+        else {
+            cout << "Tu " << startNode << " den " << i
+                << " (do dai = " << dist[i] << "): ";
+            printPath(i, parent);
+            cout << endl;
+        }
+    }
+}
 #endif // GRAPH_H
